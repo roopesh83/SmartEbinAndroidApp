@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FirebaseDb</string>
+    <string name="button_add_user">Sign up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="username_msg">Enter your e-mail address</string>
+    <string name="password_msg">Enter your password</string>
+</resources>
