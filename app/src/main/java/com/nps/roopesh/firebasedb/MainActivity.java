@@ -4,6 +4,7 @@ import android.location.Address;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,9 +53,28 @@ public class MainActivity extends AppCompatActivity {
                 password_text=password.getText().toString();
                 User user=new User(username_text,password_text);
 
+
+                if(TextUtils.isEmpty(username_text)){
+                    show_message("Username can't be empty");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(password_text)){
+                    show_message("Password can't be empty");
+                    return;
+                }
+
+
+                if(password_text.length()<=6){
+                    show_message("Password must be more than 6 characters long");
+                    return;
+                }
+
+
+
                 registerUser(username_text,password_text);
                 //uploadToDatabase(user);
-                Toast.makeText(getApplicationContext(),"User added",Toast.LENGTH_LONG).show();
+
 
 
             }
@@ -65,15 +85,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+
                 String username_text;
                 String password_text;
 
                 username_text=username.getText().toString();
                 password_text=password.getText().toString();
+
+                if(TextUtils.isEmpty(username_text)){
+                    show_message("Username can't be empty");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(password_text)){
+                    show_message("Password can't be empty");
+                    return;
+                }
+
                 User user=new User(username_text,password_text);
 
                 login(username_text,password_text);
-                Toast.makeText(getApplicationContext(),"Login successful",Toast.LENGTH_LONG).show();
+
 
 
 
@@ -115,6 +148,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    void show_message(String s){
+        Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
     }
 
 
