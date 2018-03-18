@@ -5,4 +5,5 @@
     <string name="username_msg">Enter your e-mail address</string>
     <string name="password_msg">Enter your password</string>
     <string name="login_title">Login/Sign up</string>
+    <string name="home_page_title">Welcome to SmartEBin</string>
 </resources>

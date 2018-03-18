@@ -41,21 +41,18 @@ public class HomepageActivity extends AppCompatActivity {
 
 
 
-        try {
+
             databaseUsers1.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String a = "";
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                       //display_message(builder,"",userSnapshot.toString());
-                       //display_message(builder,"",userSnapshot.getValue().toString());
+
                        display_message(builder,"",userSnapshot.child("user_name").getValue(String.class));
-                        // User user = userSnapshot.getValue(User.class);
-                       // a = a + user.getUser_name();
-                       // a = a + "  ";
+
                     }
-                    ab += a;
-                    //display_message(new AlertDialog.Builder(HomepageActivity.this),"title",a);
+
+
                 }
 
                 @Override
@@ -63,9 +60,7 @@ public class HomepageActivity extends AppCompatActivity {
 
                 }
             });
-        }catch (Exception e){
-            Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
-        }
+
 
         Toast.makeText(getApplicationContext(),ab,Toast.LENGTH_LONG).show();
 
@@ -91,6 +86,12 @@ public class HomepageActivity extends AppCompatActivity {
                 }).show();
 
 
+    }
+
+
+    public void uploadToDatabase(User user){
+        String id= databaseUsers1.push().getKey();
+        databaseUsers1.child(id).setValue(user);
     }
 
 

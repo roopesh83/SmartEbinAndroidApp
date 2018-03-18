@@ -181,10 +181,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void uploadToDatabase(User user){
-        String id= databaseUsers.push().getKey();
-        databaseUsers.child(id).setValue(user);
-    }
+
 
 
 
