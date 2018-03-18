@@ -48,7 +48,7 @@ public class HomepageActivity extends AppCompatActivity {
                     String a = "";
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
 
-                       display_message(builder,"",userSnapshot.child("user_name").getValue(String.class));
+                       //display_message(builder,"",userSnapshot.child("user_name").getValue(String.class));
 
                     }
 

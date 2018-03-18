@@ -6,4 +6,8 @@
     <string name="password_msg">Enter your password</string>
     <string name="login_title">Login/Sign up</string>
     <string name="home_page_title">Welcome to SmartEBin</string>
+    <string name="content_profile">Profile page</string>
+    <string name="content_location">Location page</string>
+    <string name="content_help">help page</string>
+    <string name="content_status">Status page</string>
 </resources>

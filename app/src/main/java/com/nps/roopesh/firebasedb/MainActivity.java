@@ -149,20 +149,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void login(String username_text,String password_text){
 
-        try {
-            Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
 
-            HomepageActivity.databaseUsers=databaseUsers;
-            HomepageActivity.firebaseAuth=firebaseAuth;
 
-            startActivity(intent);
-        }catch (Exception e){
-            Toast.makeText(MainActivity.this,e.toString(),Toast.LENGTH_SHORT).show();
-        }
+
+
+
         firebaseAuth.signInWithEmailAndPassword(username_text,password_text).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
+
+                    HomepageActivity.databaseUsers=databaseUsers;
+                    HomepageActivity.firebaseAuth=firebaseAuth;
+
+                    startActivity(intent);
                     Toast.makeText(MainActivity.this,"Sign in successful",Toast.LENGTH_SHORT).show();
                     //startActivity(new Intent(MainActivity.this,HomepageActivity.class));
                 }else{
