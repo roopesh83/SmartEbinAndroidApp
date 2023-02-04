@@ -1,9 +1,11 @@
 package com.nps.roopesh.firebasedb;
 
+import android.content.Intent;
 import android.location.Address;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText username;
@@ -24,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     Button AddUserButton,SignInButton;
     DatabaseReference databaseUsers;
     FirebaseAuth firebaseAuth;
+
+    User user;
 
 
     @Override
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
         databaseUsers= FirebaseDatabase.getInstance().getReference();
         firebaseAuth=FirebaseAuth.getInstance();
+        user=new User("roopy","uhdfiuh");
+
 
         //signup button
         AddUserButton.setOnClickListener(new View.OnClickListener() {
@@ -50,11 +58,31 @@ public class MainActivity extends AppCompatActivity {
 
                 username_text=username.getText().toString();
                 password_text=password.getText().toString();
-                User user=new User(username_text,password_text);
+                user.setUser_name(username_text);
+                user.setPassword(password_text);
+
+
+                if(TextUtils.isEmpty(username_text)){
+                    show_message("Username can't be empty");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(password_text)){
+                    show_message("Password can't be empty");
+                    return;
+                }
+
+
+                if(password_text.length()<=6){
+                    show_message("Password must be more than 6 characters long");
+                    return;
+                }
+
+
 
                 registerUser(username_text,password_text);
                 //uploadToDatabase(user);
-                Toast.makeText(getApplicationContext(),"User added",Toast.LENGTH_LONG).show();
+
 
 
             }
@@ -65,15 +93,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
+
                 String username_text;
                 String password_text;
 
                 username_text=username.getText().toString();
                 password_text=password.getText().toString();
+                //user=new User(username_text,password_text);
+                user.setUser_name(username_text);
+                user.setPassword(password_text);
+
+                if(TextUtils.isEmpty(username_text)){
+                    show_message("Username can't be empty");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(password_text)){
+                    show_message("Password can't be empty");
+                    return;
+                }
+
                 User user=new User(username_text,password_text);
 
                 login(username_text,password_text);
-                Toast.makeText(getApplicationContext(),"Login successful",Toast.LENGTH_LONG).show();
+
 
 
 
@@ -86,11 +130,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void registerUser(String username_text, String password_text){
+
         firebaseAuth.createUserWithEmailAndPassword(username_text,password_text).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(MainActivity.this,"registered",Toast.LENGTH_SHORT).show();
+
                 }else{
                     Toast.makeText(MainActivity.this,"some problem with registration",Toast.LENGTH_SHORT).show();
                 }
@@ -102,11 +148,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void login(String username_text,String password_text){
+
+        try {
+            Intent intent = new Intent(getApplicationContext(), HomepageActivity.class);
+
+            HomepageActivity.databaseUsers=databaseUsers;
+            HomepageActivity.firebaseAuth=firebaseAuth;
+
+            startActivity(intent);
+        }catch (Exception e){
+            Toast.makeText(MainActivity.this,e.toString(),Toast.LENGTH_SHORT).show();
+        }
         firebaseAuth.signInWithEmailAndPassword(username_text,password_text).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(MainActivity.this,"Sign in successful",Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(MainActivity.this,HomepageActivity.class));
                 }else{
                     Toast.makeText(MainActivity.this,"some problem with signin",Toast.LENGTH_SHORT).show();
                 }
@@ -115,6 +173,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    void show_message(String s){
+        Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
     }
 
 

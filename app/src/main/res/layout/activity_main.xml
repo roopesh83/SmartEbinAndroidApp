@@ -12,26 +12,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
+        android:background="?attr/colorButtonNormal"
         android:orientation="vertical">
 
 
         <EditText
             android:id="@+id/username"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="45dp"
             android:ems="10"
+            android:hint="@string/username_msg"
             android:inputType="textPersonName"
-            android:text=""
-            android:hint="@string/sign_in"
-            />
+            android:paddingLeft="0.11in"
+            android:text="" />
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingLeft="0.11in"
             android:layout_alignStart="@+id/username"
             android:layout_below="@+id/username"
             android:layout_marginTop="36dp"
@@ -54,6 +56,7 @@
             android:id="@+id/AddUserButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_light"
             android:text="@string/button_add_user" />
 
         <Button
@@ -61,5 +64,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sign_in" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/bin1" />
     </LinearLayout>
 </LinearLayout>
